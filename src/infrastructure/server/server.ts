@@ -15,7 +15,6 @@ class server {
 
 
   private messageConsumers(){
-    const port = 5672
     RabbitMqServer(String(env.RabbitMQ_Connection),"hey-queue")
   }
 
@@ -26,6 +25,7 @@ class server {
 
 
   public run ():void {
+    // console.log(new Date('2001-12-05'))
     this.app.listen(Number(env.Port),()=>console.log(`
     ╭─────────────────────────────────────────────────────────────╮
     │                                                             │

@@ -1,4 +1,4 @@
-import { Write } from "../../repository/repository"
+import { Write } from "../../repository/mongo-repository"
 
 
 class NofiyUser {
@@ -12,5 +12,6 @@ class NofiyUser {
     }
 
 }
+
 
 export default NofiyUser
