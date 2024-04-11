@@ -1,9 +1,18 @@
 import { model,Schema } from "mongoose";
 
 const schema = new Schema({
-    to : String,
-    message : String,
-    time : Date 
+    uuid : {
+        required : true,
+        type : String,
+    },
+    to :{
+        required : true,
+        type :  String,
+    },
+    time : {
+        required : true,
+        type :  Date,
+    }
 })
 
 
