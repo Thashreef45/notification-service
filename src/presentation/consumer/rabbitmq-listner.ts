@@ -1,22 +1,60 @@
 import * as amqp from 'amqplib'
-import { registerEvent } from '../controller/controller'
+import * as controller from '../controller/controller'
 
 
-const Registration = async(port:string,queue:string) => {
+const registration = 'registration-notification'
+const test = 'hey-queue'
+
+const Registration = async (port: string) => {
     try {
         const connection = await amqp.connect(String(port))
         const channel = await connection.createChannel()
 
-        await channel.assertQueue(queue)
-        channel.consume(queue, (data: any) => {
+        
+        /*       Declare queues     */
+        await channel.assertQueue(test)
+        await channel.assertQueue(registration)
+
+
+        /*               Listners              */
+
+        //testing queue
+        channel.consume(test, (data: any) => {
             channel.ack(data)
-            registerEvent(data?.content.toString())
+            controller.registerationEvent(data?.content.toString())
         })
 
-    } catch (error) {
+
+        //registration queue
+         channel.consume(registration, (data: any) => {
+            channel.ack(data)
+            controller.registerationEvent(data?.content.toString())
+        })
+
+
+
+
+        ConnctionSuccessLog()
+    } catch (error ) {
         console.log(error)
     }
 }
 
+
+
 export default Registration
 
+
+
+
+
+
+const ConnctionSuccessLog = () => {
+    console.log(`
+    ╭─────────────────────────────────────────────────────────────╮
+    │                                                             │
+    │                  RabbitMq Server Connect                    │
+    │                                                             │
+    ╰─────────────────────────────────────────────────────────────╯
+    ` )
+}

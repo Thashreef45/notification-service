@@ -1,11 +1,9 @@
 import nodemailer from 'nodemailer'
-import env from '../config/environment';
+import env from '../../config/environment';
 
 
 
 class EmailSender {
-
-
     async sendEmail(
       to: string,
       subject: string,

@@ -1,34 +1,19 @@
-import NofiyUser from "../usecase/pending -registration"
-import * as repository from "../../repository/mongo-repository"
-import PollNotification from "../usecase/notification-polling"
-import EmailSender from "../../infrastructure/services/email-service"
+import NofiyUser from "../usecase/registration-notification"
+import EmailSender from "../../infrastructure/services/nodemailer/email-service"
+import { IEmail } from "../../interface/Email"
 
 
 const emailService = new EmailSender()
 
 
 
-export const registerEvent = (data:any) => {
+export const registerationEvent = (data:string) => {
 
-    const nofiyUser = new NofiyUser(repository) 
+    const nofiyUser = new NofiyUser({emailService})
     nofiyUser.execute(JSON.parse(data))
+    // emailService.sendEmail
 }
 
-
-export const notifier = () => {
-
-    const notificatonPolling = new PollNotification(repository,emailService )
-    notificatonPolling.execute()
-}
-notifier()
-
-
-
-
-// --------data thruogh api if it necessary ---
-// export const apiRegisterEvent = (data:any) => {
-//     NofiyUser(data)
-// }
 
 
 
